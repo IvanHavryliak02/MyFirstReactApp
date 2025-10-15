@@ -8,11 +8,11 @@ import AddEmpolyees from '../add-employees/add-employees'
 function App() {
 
     const APIData = [
-        {name: 'Michel Smith', salary: 1000, increase: true, id: 1},
-        {name: 'Alex Robok', salary: 2000, increase: true, id: 2},
-        {name: 'Andrew Milex', salary: 3000, increase: false, id: 3},
-        {name: 'Ivan Havryliak', salary: 4000, increase: false, id: 4},
-        {name: 'Jason More', salary: 10000, increase: true, id: 5}
+        {name: 'Michel Smith', salary: 1000, id: 1},
+        {name: 'Alex Robok', salary: 2000, id: 2},
+        {name: 'Andrew Milex', salary: 3000, id: 3},
+        {name: 'Ivan Havryliak', salary: 4000, id: 4},
+        {name: 'Jason More', salary: 10000, id: 5}
     ]
 
     return (
