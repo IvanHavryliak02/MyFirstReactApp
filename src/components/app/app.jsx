@@ -6,6 +6,15 @@ import List from '../list/list';
 import AddEmpolyees from '../add-employees/add-employees'
 
 function App() {
+
+    const APIData = [
+        {name: 'Michel Smith', salary: 1000, increase: true, id: 1},
+        {name: 'Alex Robok', salary: 2000, increase: true, id: 2},
+        {name: 'Andrew Milex', salary: 3000, increase: false, id: 3},
+        {name: 'Ivan Havryliak', salary: 4000, increase: false, id: 4},
+        {name: 'Jason More', salary: 10000, increase: true, id: 5}
+    ]
+
     return (
         <div className="app">
             <Info/>
@@ -15,7 +24,7 @@ function App() {
                 <Filter/>
             </div>
 
-            <List/>
+            <List data={APIData}/>
             <AddEmpolyees/>
         </div>
     );
