@@ -17,7 +17,7 @@ class App extends Component {
                 { name: 'Emma Collins', salary: 980, increase: false, like: false, id: 3 },
                 { name: 'Noah Reed', salary: 1120, increase: false, like: false, id: 4 },
                 { name: 'Olivia Gray', salary: 1340, increase: false, like: false, id: 5 }
-            ]
+            ],
         }
     }
 
@@ -59,9 +59,11 @@ class App extends Component {
 
     render(){
         const {APIData} = this.state;
+        const elementsAmount = APIData.length;
+        const increaseAmount = APIData.filter(item => item.increase).length; 
         return (
             <div className="app">
-                <Info/>
+                <Info elementsAmount={elementsAmount} increaseAmount={increaseAmount}/>
 
                 <div className="search-panel">
                     <Search/>
