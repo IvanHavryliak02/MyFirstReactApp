@@ -3,46 +3,35 @@ import './list-item.css'
 
 class ListItem extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            increase: false,
-            liked: false
-        }
-    }
-
-    changeLike = () => {
-        this.setState(({liked}) => ({
-            liked: !liked
-        }))
-    }
-
-    changeIncrease = () => {
-        this.setState(({increase}) => ({
-            increase: !increase
-        }))
-    }
-
     render() {
-        const {name, salary, onDelete} = this.props;
-        const {increase, liked} = this.state;
-        const increasedClass = increase ? ' increase' : ''
-        const likedClass = liked ? ' like' : '';
+        const {
+            name, 
+            salary, 
+            onDelete, 
+            onChangeIncrease, 
+            onChangeLike, 
+            increase, 
+            like} = this.props;
+        
+        const toggleStatus = (status, className) => status ? ` ${className}` : '';
+        
+        const increaseClass = toggleStatus(increase, 'increase')
+        const likeClass = toggleStatus(like, 'like')
 
         return (
             <li 
-                className={"list-group-item d-flex justify-content-between" + increasedClass + likedClass}
+                className={"list-group-item d-flex justify-content-between" + increaseClass + likeClass}
             >
                 <span 
                     className="list-group-item-label"
-                    onClick={this.changeLike}
+                    onClick={onChangeLike}
                 >{name}</span>
                 <input type="text" className="list-group-item-input" defaultValue={salary + '$'}/>
                 <div className='d-flex justify-content-center align-items-center'>
                     <button 
                         type="button"
                         className="btn-cookie btn-sm "
-                        onClick={this.changeIncrease}
+                        onClick={onChangeIncrease}
                     >
                         <i className="fas fa-cookie"></i>
                     </button>
@@ -50,7 +39,7 @@ class ListItem extends Component {
                     <button 
                         type="button"
                         className="btn-trash btn-sm"
-                        onClick={() => onDelete()}
+                        onClick={onDelete}
                     >
                         <i className="fas fa-trash"></i>
                     </button>

@@ -12,7 +12,11 @@ class App extends Component {
         super(props)
         this.state = {
             APIData: [
-                
+                { name: 'John Ador', salary: 1000, increase: false, like: false, id: 1 },
+                { name: 'Liam Brooks', salary: 1250, increase: false, like: false, id: 2 },
+                { name: 'Emma Collins', salary: 980, increase: false, like: false, id: 3 },
+                { name: 'Noah Reed', salary: 1120, increase: false, like: false, id: 4 },
+                { name: 'Olivia Gray', salary: 1340, increase: false, like: false, id: 5 }
             ]
         }
     }
@@ -27,12 +31,43 @@ class App extends Component {
     }
 
     createElement = (obj) => {
+        const newObj = {
+            ...obj, 
+            increase: false,
+            like: false,
+        }
         this.setState(({APIData}) => {
-            obj.id = APIData.length !== 0 ? APIData[APIData.length - 1].id + 1 : 0;
+            newObj.id = APIData.length !== 0 ? APIData[APIData.length - 1].id + 1 : 0;
             return {
-                APIData: [...APIData, obj]
+                APIData: [...APIData, newObj]
             }
         })
+    }
+
+    onChangeIncrease = (id) => {
+        this.setState(({APIData}) => (
+            {
+                APIData: APIData.map(item => {
+                    if(item.id === id){
+                        return {...item, increase: !item.increase}
+                    }
+                    return item
+                })
+            }
+        ))
+    }
+
+    onChangeLike = (id) => {
+        this.setState(({APIData}) => (
+            {
+                APIData: APIData.map(item => {
+                    if(item.id === id){
+                        return {...item, like: !item.like}
+                    }
+                    return item
+                })
+            }
+        ))
     }
 
     render(){
@@ -49,6 +84,8 @@ class App extends Component {
                 <List 
                     data={APIData}
                     onDelete = {this.deleteElement}
+                    onChangeIncrease = {this.onChangeIncrease}
+                    onChangeLike = {this.onChangeLike}
                 />
                 <AddEmpolyees
                     onAddEmployee = {(obj) => this.createElement(obj)}
