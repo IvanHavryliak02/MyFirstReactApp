@@ -44,25 +44,12 @@ class App extends Component {
         })
     }
 
-    onChangeIncrease = (id) => {
+    onToggleProp = (id, prop) => {
         this.setState(({APIData}) => (
             {
                 APIData: APIData.map(item => {
                     if(item.id === id){
-                        return {...item, increase: !item.increase}
-                    }
-                    return item
-                })
-            }
-        ))
-    }
-
-    onChangeLike = (id) => {
-        this.setState(({APIData}) => (
-            {
-                APIData: APIData.map(item => {
-                    if(item.id === id){
-                        return {...item, like: !item.like}
+                        return {...item, [prop]: !item[prop]}
                     }
                     return item
                 })
@@ -84,8 +71,7 @@ class App extends Component {
                 <List 
                     data={APIData}
                     onDelete = {this.deleteElement}
-                    onChangeIncrease = {this.onChangeIncrease}
-                    onChangeLike = {this.onChangeLike}
+                    onToggleProp = {this.onToggleProp}
                 />
                 <AddEmpolyees
                     onAddEmployee = {(obj) => this.createElement(obj)}

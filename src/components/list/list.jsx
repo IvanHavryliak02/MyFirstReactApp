@@ -1,7 +1,7 @@
 import ListItem from '../list-item/list-item';
 import './list.css'
 
-const List = ({data, onDelete, onChangeIncrease, onChangeLike}) => {
+const List = ({data, onDelete, onToggleProp}) => {
 
     const apidata = data.map(item => {
         const {id, ...itemProps} = item;
@@ -9,8 +9,9 @@ const List = ({data, onDelete, onChangeIncrease, onChangeLike}) => {
             key={id} 
             {...itemProps} 
             onDelete = {() => onDelete(id)}
-            onChangeIncrease = {() => onChangeIncrease(id)}
-            onChangeLike = {() => onChangeLike(id)}
+            onToggleProp = {
+                (e) => onToggleProp(id, e.currentTarget.getAttribute('data-toggle'))
+            }
         />
     })
     return (
