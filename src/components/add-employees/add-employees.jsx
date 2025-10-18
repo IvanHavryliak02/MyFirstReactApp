@@ -17,6 +17,13 @@ class AddEmployees extends Component {
         })
     }
 
+    clearForm = () => {
+        this.setState({
+            name: '',
+            salary: ''
+        })
+    }
+
     render(){
         const {onAddEmployee} = this.props;
         const {name, salary} = this.state;
@@ -28,6 +35,7 @@ class AddEmployees extends Component {
                     onSubmit={(e) => {
                         e.preventDefault();
                         onAddEmployee({name: name, salary: salary});
+                        this.clearForm();
                     }}
                 >
                     <input type="text"

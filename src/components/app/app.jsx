@@ -31,17 +31,19 @@ class App extends Component {
     }
 
     createElement = (obj) => {
-        const newObj = {
+        if(obj.name && obj.salary){
+            const newObj = {
             ...obj, 
             increase: false,
             like: false,
-        }
-        this.setState(({APIData}) => {
-            newObj.id = APIData.length !== 0 ? APIData[APIData.length - 1].id + 1 : 0;
-            return {
-                APIData: [...APIData, newObj]
             }
-        })
+            this.setState(({APIData}) => {
+                newObj.id = APIData.length !== 0 ? APIData[APIData.length - 1].id + 1 : 0;
+                return {
+                    APIData: [...APIData, newObj]
+                }
+            })
+        }  
     }
 
     onToggleProp = (id, prop) => {
