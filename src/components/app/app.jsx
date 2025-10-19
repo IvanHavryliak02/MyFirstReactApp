@@ -18,9 +18,16 @@ class App extends Component {
                 { name: 'Noah Reed', salary: 1120, increase: false, like: false, id: 4 },
                 { name: 'Olivia Gray', salary: 1340, increase: false, like: false, id: 5 }
             ],
+            term: '',
+            filter: 'all'
         }
     }
 
+    changeFilterType = (filterType) => {
+        this.setState(({filter}) => (
+            {filter: filterType}
+        ))
+    }
 
     deleteElement = (id) => {
         this.setState(({APIData}) => (
@@ -59,26 +66,54 @@ class App extends Component {
         ))
     }
 
+    searchFilter = (data, term, filter) => {
+        if(term.length === 0 && filter === 'all'){
+            return data 
+        }
+        return data.filter(item => {
+            const nameIndex = item.name.indexOf(term)
+            if(nameIndex > -1){
+                if(filter === 'all'){
+                    return item
+                }
+                if(filter === 'increase'){
+                    return item.increase
+                }
+                if(filter === 'salary'){
+                    return item.salary > 1000
+                }
+            }
+            return false
+        })
+    }
+
+    onSearchChange = (newValue) => {
+        this.setState(({
+            term: newValue
+        }))
+    }
+
     render(){
-        const {APIData} = this.state;
+        const {APIData, term, filter} = this.state;
         const elementsAmount = APIData.length;
-        const increaseAmount = APIData.filter(item => item.increase).length; 
+        const increaseAmount = APIData.filter(item => item.increase).length;
+        const visibleData = this.searchFilter(APIData, term, filter) 
         return (
             <div className="app">
                 <Info elementsAmount={elementsAmount} increaseAmount={increaseAmount}/>
 
                 <div className="search-panel">
-                    <Search/>
-                    <Filter/>
+                    <Search onSearchChange={this.onSearchChange}/>
+                    <Filter onFilterChange={this.changeFilterType}/>
                 </div>
 
                 <List 
-                    data={APIData}
+                    data={visibleData}
                     onDelete = {this.deleteElement}
                     onToggleProp = {this.onToggleProp}
                 />
                 <AddEmpolyees
-                    onAddEmployee = {(obj) => this.createElement(obj)}
+                    onAddEmployee = {this.createElement}
                 />
             </div>
         );
